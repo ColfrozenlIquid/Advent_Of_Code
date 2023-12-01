@@ -4,16 +4,6 @@
 #include <locale>
 #include <array>
 
-#define ONE "one"
-#define TWO "two"
-#define THREE "three"
-#define FOUR "four"
-#define FIVE "five"
-#define SIX "six"
-#define SEVEN "seven"
-#define EIGHT "eight"
-#define NINE "nine"
-
 typedef struct Tuple {
     std::string str_name;
     int value;
@@ -23,21 +13,18 @@ int main() {
     std::ifstream infile("input.txt");
     std::string line;
     int sum = 0;
-    Tuple one = {ONE, 1};
-    Tuple two = {TWO, 2};
-    Tuple three = {THREE, 3};
-    Tuple four = {FOUR, 4};
-    Tuple five = {FIVE, 5};
-    Tuple six = {SIX, 6};
-    Tuple seven = {SEVEN, 7};
-    Tuple eight = {EIGHT, 8};
-    Tuple nine = {NINE, 9};
+    Tuple one = {"one", 1};
+    Tuple two = {"two", 2};
+    Tuple three = {"three", 3};
+    Tuple four = {"four", 4};
+    Tuple five = {"five", 5};
+    Tuple six = {"six", 6};
+    Tuple seven = {"seven", 7};
+    Tuple eight = {"eight", 8};
+    Tuple nine = {"nine", 9};
     std::array<Tuple, 9> digit_names_arr = {one, two, three, four, five, six, seven, eight, nine};
 
-    //test edit
-
     while(std::getline(infile, line)){
-        std::cout << "Current line is: " << line <<std::endl;
         int digit_1 = 0;
         int digit_2 = 0;
         bool found_1 = false;
@@ -47,11 +34,11 @@ int main() {
             //check for digit
             if (std::isdigit(line[i])){
                 if (!found_1){
-                    digit_1 = line[i] - 48;
+                    digit_1 = line[i] - 48; // convert ASCII to int
                     found_1 = true;
                     continue;
                 }
-                digit_2 = line[i] - 48;
+                digit_2 = line[i] - 48; // convert ASCII to int
                 found_2 = true;
             }
             //check for words
@@ -64,7 +51,6 @@ int main() {
                     }
                 }
                 if (length == count) {
-                    std::cout << "Found word: " << word.str_name << " with value: " << word.value <<  std::endl;
                     if(!found_1) {
                         digit_1 = word.value;
                         found_1 = true;
@@ -77,13 +63,11 @@ int main() {
         }
         if (found_1 && found_2) {
             sum += (digit_1*10 + digit_2);
-        } else {
+        }
+        else {
             sum += (digit_1 * 10 + digit_1);
         }
-        
-        //std::cout << "Current Line is: " << line << std::endl;
-        std::cout << "Digit 1: " << digit_1 << " Digit 2: " << digit_2 << std::endl;
-        std::cout << "Current sum is: " << sum << std::endl;
     }
+    std::cout << "Result sum is: " << sum << std::endl;
     return 0;
 }
