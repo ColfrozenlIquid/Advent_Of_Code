@@ -34,6 +34,8 @@ int main() {
     Tuple nine = {NINE, 9};
     std::array<Tuple, 9> digit_names_arr = {one, two, three, four, five, six, seven, eight, nine};
 
+    //test edit
+
     while(std::getline(infile, line)){
         std::cout << "Current line is: " << line <<std::endl;
         int digit_1 = 0;
