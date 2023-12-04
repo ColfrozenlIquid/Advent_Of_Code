@@ -16,6 +16,7 @@ int main() {
         str_arr.push_back(line);
     }
     for (int vec_idx = 0; vec_idx < str_arr.size(); vec_idx++){
+    //for (int vec_idx = 56; vec_idx < 59; vec_idx++){
         std::cout << "Current Index " << index << ":-----------------------------------------------------------------------------------------------------------------------------------------" << std::endl;
         std::cout << "Previous line: " << str_arr[vec_idx-1] << std::endl;
         std::cout << "Current line:  " << str_arr[vec_idx] << std::endl;
@@ -50,7 +51,7 @@ int main() {
                     if(!isdigit(str_arr[vec_idx][start_pos-1])){
                         if (str_arr[vec_idx][start_pos-1] != '.') {
                             //std::cout << "Found special char left of the number: " << value << std::endl;
-                            std::cout << "Adding number: " << value << " to sum" << std::endl;
+                            //std::cout << "Adding number: " << value << " to sum" << std::endl;
                             sum += value;
                         }
                     }
@@ -62,7 +63,7 @@ int main() {
                             //std::cout << "Found special char right of the number: " << value << std::endl;
                             if (str_arr[vec_idx][end_pos+1] != '\0') {
                                 sum += value;
-                                std::cout << "Adding number: " << value << " to sum" << std::endl;
+                                //std::cout << "Adding number: " << value << " to sum" << std::endl;
                             }
                             
                         }
@@ -88,9 +89,9 @@ int main() {
                                 //std::cout << "Found character " << str_arr[vec_idx-1][idx] << " in previous line at pos (" << idx << ")" << std::endl;
                                 if (idx != 140) {
                                     sum += value;
-                                    std::cout << "Adding number: " << value << " to sum" << std::endl;
+                                    //std::cout << "Adding number: " << value << " to sum" << std::endl;
+                                    found = true;
                                 }
-                                found = true;
                             }
                         }
                     }
@@ -110,13 +111,12 @@ int main() {
                     }
                     for (int idx = begin; idx <= end; idx++){
                         if(!isdigit(str_arr[vec_idx+1][idx])){
-                            if (str_arr[vec_idx+1][idx] != '.') {
-                                //std::cout << "Found character " << str_arr[vec_idx+1][idx] << " in previous line at pos (" << idx << ")" << std::endl;
+                            if (str_arr[vec_idx+1][idx] != ('.')) {
+                                //std::cout << "Found character " << str_arr[vec_idx+1][idx] << " in next line at pos (" << idx << ")" << std::endl;
                                 if (str_arr[vec_idx+1][idx] != '\0') {
                                     sum += value;
-                                    std::cout << "Adding number: " << value << " to sum" << std::endl;
+                                    //std::cout << "Adding number: " << value << " to sum" << std::endl;
                                 }
-                                found = true;
                             }
                         }
                     }
@@ -124,7 +124,7 @@ int main() {
 
             }
         }
-        std::cout << "Current sum is: " << sum << std::endl;
+        //std::cout << "Current sum is: " << sum << std::endl;
         index++;
     }
     std::cout << "Sum calculated to: " << sum << std::endl;
