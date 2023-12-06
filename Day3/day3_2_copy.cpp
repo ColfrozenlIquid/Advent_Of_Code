@@ -79,12 +79,6 @@ int main() {
                 number_vector.push_back(num);
             }
         }
-        // for (auto gear : gear_vector) {
-        //     std::cout << "Gear at pos (" << gear.col << ", " << gear.row << ")" << std::endl;
-        // }
-        // for (auto num : number_vector) {
-        //     std::cout << "Number at pos (" << num.start_col << ", " << num.row << ") and (" << num.end_col << ", " << num.row << ") with value: " << num.value << std::endl;
-        // }
         index++;
     }
     for (auto gear : gear_vector) {
@@ -101,39 +95,15 @@ int main() {
                     found_vec.push_back(number);
                 }
             }
-            //check top row
-            if (number.row == gear.row - 1) {
-                //check top left
-                if (number.end_col == gear.col-1) {
-                    found_vec.push_back(number);
-                }
-                //check top right
-                if (number.start_col == gear.col+1) {
-                    found_vec.push_back(number);
-                }
-                //check top middle
-                if (number.start_col == gear.col) {
-                    found_vec.push_back(number);
-                }
-                else if (number.end_col == gear.col) {
+            //check top
+            if (number.row == gear.row - 1){
+                if (number.start_col - 1 <= gear.col && gear.col <= number.end_col + 1) {
                     found_vec.push_back(number);
                 }
             }
-            //check bottom row
-            if (number.row == gear.row + 1) {
-                //check bottom left
-                if (number.end_col == gear.col-1) {
-                    found_vec.push_back(number);
-                }
-                //check bottom right
-                if (number.start_col == gear.col+1) {
-                    found_vec.push_back(number);
-                }
-                //check bottom middle
-                if (number.start_col == gear.col) {
-                    found_vec.push_back(number);
-                }
-                else if (number.end_col == gear.col) {
+            //check bottom
+            if (number.row == gear.row + 1){
+                if (number.start_col - 1 <= gear.col && gear.col <= number.end_col + 1) {
                     found_vec.push_back(number);
                 }
             }
@@ -141,18 +111,15 @@ int main() {
         for (auto i : found_vec) {
             gear.connected_numbers.push_back(i);
         }
-        // int val = 0;
-        // if (found_vec.size() == 2) {
-        //     val = found_vec[0].value * found_vec[1].value;
-        // }
-        // for (auto num : found_vec) {
-        //     std::cout << "Number at pos (" << num.start_col << ", " << num.row + 1 << ") and (" << num.end_col << ", " << num.row + 1 << ") with value: " << num.value << std::endl;
-        // }
-        // std::cout << std::endl;
-        // sum += val;
-    }
-    for (auto gear : gear_vector) {
-        
+        int val = 0;
+        if (found_vec.size() == 2) {
+            val = found_vec[0].value * found_vec[1].value;
+        }
+        for (auto num : found_vec) {
+            std::cout << "Number at pos (" << num.start_col << ", " << num.row + 1 << ") and (" << num.end_col << ", " << num.row + 1 << ") with value: " << num.value << std::endl;
+        }
+        std::cout << std::endl;
+        sum += val;
     }
     std::cout << "Sum is: " << sum << std::endl;
     return 0;
