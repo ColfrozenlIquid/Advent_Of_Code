@@ -39,12 +39,22 @@ long long find_location_number(long long, std::vector<Map_List>);
 
 
 int main(){
-    std::vector<std::string> input_vec = input_to_vector("input_sample.txt");
+    std::vector<std::string> input_vec = input_to_vector("input5.txt");
 	std::vector<Map_List> map_list_vec = generate_map_list(input_vec);
     print_map_list_vec(map_list_vec);
-	long long seed = 79;
-	long long result = find_location_number(seed, map_list_vec);
-	std::cout << "Result is: " << result << std::endl;
+	long long seed_arr[] = {432986705, 28073546, 1364097901, 88338513, 2733524843,
+		234912494, 3151642679, 224376393, 485709676, 344068331,
+		1560394266, 911616092, 3819746175, 87998136, 892394515,
+		435690182, 4218056486, 23868437, 848725444, 8940450};
+	int final_result = INT_MAX;
+	for (auto seed : seed_arr){
+		long long result = find_location_number(seed, map_list_vec);
+		if (result < final_result) {
+			final_result = result;
+		}
+		std::cout << "Result is: " << result << std::endl;
+	}
+	std::cout << "Final result is: " << final_result << '\n';
     return 0;
 }
 
@@ -58,8 +68,9 @@ long long find_location_number(long long seed, std::vector<Map_List> map_list_ve
 				bool found = false;
 				for (auto map : map_list.map_vec) {
 					if (current >= map.source_range_start && current <= map.source_range_end) {
-						current += map.difference;
+						current = current - map.source_range_start + map.dest_range_start;
 						std::cout << "Changed current to: " << current << std::endl;
+						std::cout << "New type is: " << enum_to_string(map_list.output) << '\n';
 						current_type = map_list.output;
 						found = true;
 						break;
@@ -132,15 +143,16 @@ std::vector<Map_List> generate_map_list(std::vector<std::string> input_vec) {
 						map.range = value;
 						break;
 					}
-					map.source_range_end = map.source_range_start + map.range;
-					if (map.source_range_start > map.dest_range_start) {
-						map.difference = map.dest_range_start - map.source_range_start;
-					} else {
-						map.difference = map.source_range_start - map.dest_range_start;
-					}
+					map.source_range_end = map.source_range_start + map.range - 1;
+					// map.source_range_end = map.source_range_start + map.range;
+					// if (map.source_range_start > map.dest_range_start) {
+					// 	map.difference = map.dest_range_start - map.source_range_start;
+					// } else {
+					// 	map.difference = map.source_range_start - map.dest_range_start;
+					// }
 					index++;
-					map_list.map_vec.push_back(map);
 				}
+				map_list.map_vec.push_back(map);
         	}
 			map_list_vec.push_back(map_list);
 		}
@@ -153,7 +165,7 @@ void print_map_list_vec(std::vector<Map_List> map_list_vec) {
 	for (auto map_list : map_list_vec) {
 		std::cout << "Maplist input: " << enum_to_string(map_list.input) << " output: " << enum_to_string(map_list.output) << std::endl;
 		for (auto map : map_list.map_vec) {
-			std::cout << "Map source_range_start: " << map.source_range_start << " source_range_end " << map.source_range_end << " difference: " << map.difference << std::endl; 
+			std::cout << "Map source_range_start: " << map.source_range_start << " dest_range_start " << map.dest_range_start << " range length: " << map.range << std::endl; 
 		}
 	}
 }
