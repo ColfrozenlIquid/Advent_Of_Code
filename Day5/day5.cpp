@@ -42,10 +42,12 @@ int main(){
     std::vector<std::string> input_vec = input_to_vector("input5.txt");
 	std::vector<Map_List> map_list_vec = generate_map_list(input_vec);
     print_map_list_vec(map_list_vec);
-	long long seed_arr[] = {432986705, 28073546, 1364097901, 88338513, 2733524843,
+	long long seed_arr[] = {
+		432986705, 28073546, 1364097901, 88338513, 2733524843,
 		234912494, 3151642679, 224376393, 485709676, 344068331,
 		1560394266, 911616092, 3819746175, 87998136, 892394515,
-		435690182, 4218056486, 23868437, 848725444, 8940450};
+		435690182, 4218056486, 23868437, 848725444, 8940450
+	};
 	int final_result = INT_MAX;
 	for (auto seed : seed_arr){
 		long long result = find_location_number(seed, map_list_vec);
@@ -118,11 +120,6 @@ std::vector<Map_List> generate_map_list(std::vector<std::string> input_vec) {
 				}
 				//read lines as input to map
 				Map map;
-				// map.dest_range_start = 0;
-				// map.source_range_start = 0;
-				// map.source_range_end = 0;
-				// map.range = 0;
-				// map.difference = 0;
 
 				std::regex word_regex("(\\w+)");
 				auto words_begin = std::sregex_iterator(line.begin(), line.end(), word_regex);
@@ -144,12 +141,6 @@ std::vector<Map_List> generate_map_list(std::vector<std::string> input_vec) {
 						break;
 					}
 					map.source_range_end = map.source_range_start + map.range - 1;
-					// map.source_range_end = map.source_range_start + map.range;
-					// if (map.source_range_start > map.dest_range_start) {
-					// 	map.difference = map.dest_range_start - map.source_range_start;
-					// } else {
-					// 	map.difference = map.source_range_start - map.dest_range_start;
-					// }
 					index++;
 				}
 				map_list.map_vec.push_back(map);
